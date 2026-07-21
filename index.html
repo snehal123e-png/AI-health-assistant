@@ -548,5 +548,690 @@ document.body.classList.toggle("dark");
 
 
 </script>
+  <!-- ================= PART 3 FEATURES ================= -->
+
+<style>
+
+.extra-box{
+
+background:white;
+
+margin:30px auto;
+
+padding:25px;
+
+border-radius:15px;
+
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+
+.extra-box h2{
+
+color:#0d6efd;
+
+margin-bottom:15px;
+
+}
+
+
+.search-area{
+
+display:flex;
+
+gap:10px;
+
+}
+
+
+.search-area input{
+
+flex:1;
+
+padding:12px;
+
+border-radius:8px;
+
+border:1px solid #ccc;
+
+}
+
+
+.result{
+
+margin-top:15px;
+
+padding:15px;
+
+background:#eef6ff;
+
+border-radius:10px;
+
+}
+
+
+.voice{
+
+background:#198754;
+
+}
+
+
+.clear{
+
+background:#dc3545;
+
+}
+
+</style>
+
+
+
+<div class="container">
+
+
+<div class="extra-box">
+
+
+<h2>🔍 Health Information Search</h2>
+
+
+<div class="search-area">
+
+
+<input id="healthSearch"
+
+placeholder="Search fever, diabetes, asthma...">
+
+
+<button onclick="searchHealth()">
+
+Search
+
+</button>
+
+
+</div>
+
+
+<div id="searchResult"
+
+class="result">
+
+Search results appear here.
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="extra-box">
+
+
+<h2>🎤 Voice Assistant</h2>
+
+
+<p>
+
+Click the button and speak your health question.
+
+</p>
+
+
+<button class="voice"
+
+onclick="voiceInput()">
+
+🎤 Start Voice
+
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="extra-box">
+
+
+<h2>💾 Chat History</h2>
+
+
+<button class="clear"
+
+onclick="clearHistory()">
+
+Clear Chat
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+// Offline Health Knowledge Database
+
+
+const healthDatabase={
+
+
+fever:{
+
+title:"Fever",
+
+info:"Fever is an increase in body temperature. Common causes include infections. Rest, fluids and medical advice when needed are important."
+
+},
+
+
+
+diabetes:{
+
+title:"Diabetes",
+
+info:"Diabetes affects how the body manages blood sugar. Lifestyle changes, monitoring and professional medical guidance are important."
+
+},
+
+
+
+asthma:{
+
+title:"Asthma",
+
+info:"Asthma affects breathing and may cause wheezing or shortness of breath. Avoiding triggers and following medical advice can help."
+
+},
+
+
+
+headache:{
+
+title:"Headache",
+
+info:"Headaches may occur due to stress, dehydration or other factors. Persistent severe headaches require medical evaluation."
+
+},
+
+
+
+cold:{
+
+title:"Common Cold",
+
+info:"Cold symptoms may include sneezing, cough and sore throat. Rest and hydration usually support recovery."
+
+},
+
+
+
+paracetamol:{
+
+title:"Paracetamol",
+
+info:"Paracetamol is commonly used for pain and fever relief. Follow product instructions and professional advice."
+
+},
+
+
+
+vitamin:{
+
+title:"Vitamins",
+
+info:"Vitamins support body functions. A balanced diet is usually the best source of nutrients."
+
+}
+
+
+};
+
+
+
+
+// Search Function
+
+
+function searchHealth(){
+
+
+let query=document
+.getElementById("healthSearch")
+.value
+.toLowerCase();
+
+
+let result=
+document.getElementById("searchResult");
+
+
+
+for(let item in healthDatabase){
+
+
+if(query.includes(item)){
+
+
+result.innerHTML=
+
+"<b>"+
+healthDatabase[item].title+
+"</b><br><br>"+
+healthDatabase[item].info;
+
+
+return;
+
+
+}
+
+
+}
+
+
+result.innerHTML=
+
+"No information found. Try fever, diabetes, asthma, headache, cold, paracetamol or vitamin.";
+
+
+}
+
+
+
+
+// Voice Recognition
+
+
+function voiceInput(){
+
+
+if(!('webkitSpeechRecognition' in window)){
+
+
+alert("Voice recognition not supported");
+
+return;
+
+}
+
+
+
+let recognition=
+new webkitSpeechRecognition();
+
+
+
+recognition.lang="en-US";
+
+
+
+recognition.start();
+
+
+
+recognition.onresult=function(event){
+
+
+let text=
+event.results[0][0].transcript;
+
+
+
+document.getElementById("question")
+.value=text;
+
+
+
+sendMessage();
+
+
+};
+
+
+}
+
+
+
+
+// Save Chat History
+
+
+let oldChat=
+localStorage.getItem("healthChat");
+
+
+if(oldChat){
+
+
+document.getElementById("messages")
+.innerHTML+=oldChat;
+
+
+}
+
+
+
+function saveChat(){
+
+
+localStorage.setItem(
+
+"healthChat",
+
+document.getElementById("messages")
+.innerHTML
+
+);
+
+
+}
+
+
+
+// Modify existing send function storage
+
+
+let oldSend=sendMessage;
+
+
+sendMessage=function(){
+
+
+oldSend();
+
+
+saveChat();
+
+
+}
+
+
+
+function clearHistory(){
+
+
+localStorage.removeItem("healthChat");
+
+
+document.getElementById("messages")
+.innerHTML=
+
+"<div class='bot'>Chat cleared. Ask your health question.</div>";
+
+
+}
+
+
+
+</script>
+  <!-- ================= PART 4 : QUALITY IMPROVEMENTS ================= -->
+
+<style>
+
+.access-card{
+
+background:white;
+
+padding:25px;
+
+margin:30px;
+
+border-radius:15px;
+
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+
+}
+
+
+.warning{
+
+background:#fff3cd;
+
+border-left:6px solid #ff9800;
+
+padding:20px;
+
+border-radius:10px;
+
+margin-bottom:20px;
+
+}
+
+
+.loader{
+
+display:none;
+
+width:25px;
+
+height:25px;
+
+border:4px solid #ddd;
+
+border-top:4px solid #0d6efd;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+
+@media(max-width:600px){
+
+.input-area{
+
+flex-direction:column;
+
+}
+
+
+.input-area button{
+
+margin-top:10px;
+
+}
+
+}
+
+</style>
+
+
+
+<div class="container">
+
+
+<div class="access-card">
+
+
+<div class="warning">
+
+<b>⚠ Health Safety Notice</b>
+
+<br><br>
+
+This AI assistant provides educational information only.
+
+It does not replace a doctor or medical professional.
+
+For emergencies, contact emergency services.
+
+</div>
+
+
+
+<h2>♿ Accessibility Features</h2>
+
+
+<ul>
+
+<li>Keyboard friendly interface</li>
+
+<li>Readable text contrast</li>
+
+<li>Clear button labels</li>
+
+<li>Mobile responsive design</li>
+
+<li>Simple language responses</li>
+
+</ul>
+
+
+
+<br>
+
+
+<h2>📄 Export Conversation</h2>
+
+
+<button onclick="downloadChat()">
+
+Download Chat Report
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+// Improve input security
+
+const originalSend=sendMessage;
+
+
+sendMessage=function(){
+
+
+let input=document
+.getElementById("question")
+.value
+.trim();
+
+
+
+if(input.length>300){
+
+
+alert("Please keep your question under 300 characters");
+
+
+return;
+
+
+}
+
+
+originalSend();
+
+
+}
+
+
+
+// Export chat
+
+
+function downloadChat(){
+
+
+let data=
+document.getElementById("messages")
+.innerText;
+
+
+
+let file=
+new Blob(
+
+[data],
+
+{type:"text/plain"}
+
+);
+
+
+
+let link=
+document.createElement("a");
+
+
+link.href=
+URL.createObjectURL(file);
+
+
+link.download=
+"Health_AI_Report.txt";
+
+
+link.click();
+
+
+}
+
+
+
+
+
+// Enter key support
+
+
+document
+.getElementById("question")
+.addEventListener(
+
+"keypress",
+
+function(event){
+
+
+if(event.key==="Enter"){
+
+
+sendMessage();
+
+
+}
+
+
+}
+
+);
+
+
+
+</script>
 </body>
 </html>
