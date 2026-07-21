@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Health Information Assistant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef6ff;
+display:flex;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* Sidebar */
+
+.sidebar{
+width:250px;
+background:#0f172a;
+color:white;
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+padding:25px;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:24px;
+font-weight:bold;
+margin-bottom:40px;
+}
+
+.logo span{
+font-size:32px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+padding:15px;
+margin-bottom:10px;
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
+font-size:17px;
+}
+
+.sidebar ul li:hover{
+background:#2563eb;
+}
+
+.main{
+margin-left:250px;
+width:calc(100% - 250px);
+}
+
+/* Navbar */
+
+.navbar{
+
+background:white;
+
+padding:20px 35px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:0 3px 12px rgba(0,0,0,.08);
+
+position:sticky;
+
+top:0;
+
+z-index:10;
+
+}
+
+.navbar input{
+
+width:320px;
+
+padding:12px;
+
+border-radius:10px;
+
+border:1px solid #ccc;
+
+outline:none;
+
+}
+
+.user{
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.avatar{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+background:#2563eb;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:bold;
+
+color:white;
+
+}
+
+/* Hero */
+
+.hero{
+
+margin:30px;
+
+background:linear-gradient(135deg,#2563eb,#0ea5e9);
+
+border-radius:25px;
+
+padding:45px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+color:white;
+
+}
+
+.hero h1{
+
+font-size:42px;
+
+margin-bottom:15px;
+
+}
+
+.hero p{
+
+font-size:18px;
+
+opacity:.95;
+
+line-height:1.6;
+
+max-width:600px;
+
+}
+
+.hero button{
+
+margin-top:25px;
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:10px;
+
+background:white;
+
+color:#2563eb;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.hero button:hover{
+
+transform:translateY(-2px);
+
+}
+
+.illustration{
+
+font-size:140px;
+
+}
+
+/* Cards */
+
+.cards{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+gap:25px;
+
+padding:30px;
+
+}
+
+.card{
+
+background:white;
+
+padding:25px;
+
+border-radius:18px;
+
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+
+}
+
+.card h2{
+
+margin-bottom:10px;
+
+color:#2563eb;
+
+}
+
+.card p{
+
+color:#666;
+
+line-height:1.6;
+
+}
+
+.card .icon{
+
+font-size:50px;
+
+margin-bottom:15px;
+
+}
+
+.section-title{
+
+padding:0 30px;
+
+font-size:28px;
+
+font-weight:700;
+
+margin-top:20px;
+
+}
+
+@media(max-width:900px){
+
+.sidebar{
+
+display:none;
+
+}
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+}
+
+.hero{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.hero h1{
+
+font-size:34px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="logo">
+
+<span>🩺</span>
+
+HealthAI
+
+</div>
+
+<ul>
+
+<li>🏠 Dashboard</li>
+
+<li>💬 AI Assistant</li>
+
+<li>🧪 Lab Reports</li>
+
+<li>💊 Medicines</li>
+
+<li>❤️ Diseases</li>
+
+<li>🥗 Nutrition</li>
+
+<li>🏃 Fitness</li>
+
+<li>⚙ Settings</li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="navbar">
+
+<input type="text" placeholder="Search diseases, medicines...">
+
+<div class="user">
+
+Welcome, User
+
+<div class="avatar">
+
+AI
+
+</div>
+
+</div>
+
+</div>
+
+<div class="hero">
+
+<div>
+
+<h1>AI Health Information Assistant</h1>
+
+<p>
+
+Ask questions about diseases, symptoms,
+
+nutrition, medicines and medical reports.
+
+Get educational health information powered
+
+by Artificial Intelligence.
+
+</p>
+
+<button>
+
+Start Chat →
+
+</button>
+
+</div>
+
+<div class="illustration">
+
+👨‍⚕️
+
+</div>
+
+</div>
+
+<h2 class="section-title">
+
+Health Dashboard
+
+</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon">🩺</div>
+
+<h2>Symptoms</h2>
+
+<p>
+
+Describe your symptoms and receive general
+
+health information.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">💊</div>
+
+<h2>Medicines</h2>
+
+<p>
+
+Understand medicine uses, precautions,
+
+and side effects.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🥗</div>
+
+<h2>Nutrition</h2>
+
+<p>
+
+Healthy diet plans and nutrition guidance.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🧪</div>
+
+<h2>Lab Reports</h2>
+
+<p>
+
+Explain blood tests and medical reports.
+
+</p>
+
+</div>
+
+</div>
+<!-- ================= CHAT SECTION ================= -->
+
+<h2 class="section-title">
+AI Health Assistant
+</h2>
+
+<div style="padding:30px;">
+
+<div id="chatBox" style="
+background:white;
+border-radius:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+height:500px;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+">
+
+<div id="messages"
+style="
+flex:1;
+padding:20px;
+overflow-y:auto;
+background:#f8fbff;
+">
+
+<div style="
+background:#2563eb;
+color:white;
+padding:15px;
+border-radius:12px;
+width:80%;
+margin-bottom:15px;
+">
+
+👋 Hello! I'm your AI Health Information Assistant.
+
+Ask me about:
+
+• Diseases
+
+• Symptoms
+
+• Medicines
+
+• Nutrition
+
+• Exercise
+
+• Medical Reports
+
+</div>
+
+</div>
+
+<div style="
+display:flex;
+padding:15px;
+border-top:1px solid #ddd;
+background:white;
+">
+
+<input
+id="userInput"
+type="text"
+placeholder="Ask your health question..."
+style="
+flex:1;
+padding:15px;
+border:1px solid #ccc;
+border-radius:10px;
+font-size:16px;
+outline:none;
+">
+
+<button
+onclick="sendMessage()"
+style="
+margin-left:10px;
+padding:15px 25px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+">
+
+Send
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================= STATISTICS ================= -->
+
+<h2 class="section-title">
+
+Health Statistics
+
+</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon">❤️</div>
+
+<h2 id="count1">0</h2>
+
+<p>
+
+Health Articles
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">💊</div>
+
+<h2 id="count2">0</h2>
+
+<p>
+
+Medicine Database
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🧪</div>
+
+<h2 id="count3">0</h2>
+
+<p>
+
+Lab Parameters
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">😊</div>
+
+<h2 id="count4">0</h2>
+
+<p>
+
+Users Assisted
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ================= BMI ================= -->
+
+<h2 class="section-title">
+
+BMI Calculator
+
+</h2>
+
+<div style="padding:30px;">
+
+<div class="card">
+
+<input
+id="height"
+placeholder="Height (cm)"
+style="
+padding:12px;
+width:100%;
+margin-bottom:15px;
+">
+
+<input
+id="weight"
+placeholder="Weight (kg)"
+style="
+padding:12px;
+width:100%;
+margin-bottom:15px;
+">
+
+<button
+onclick="calculateBMI()"
+style="
+padding:12px 25px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+">
+
+Calculate BMI
+
+</button>
+
+<h3
+id="bmiResult"
+style="margin-top:20px;">
+</h3>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer
+style="
+margin-top:40px;
+padding:30px;
+text-align:center;
+background:#0f172a;
+color:white;
+">
+
+<h2>
+
+AI Health Information Assistant
+
+</h2>
+
+<p style="margin-top:10px;">
+
+Educational purposes only.
+
+Always consult a healthcare professional for diagnosis and treatment.
+
+</p>
+
+<p style="margin-top:20px;">
+
+© 2026 HealthAI
+
+</p>
+
+</footer>
+
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+function sendMessage(){
+
+let input=document.getElementById("userInput");
+
+let chat=document.getElementById("messages");
+
+if(input.value.trim()=="") return;
+
+chat.innerHTML+=`
+
+<div style="
+background:#2563eb;
+color:white;
+padding:12px;
+border-radius:12px;
+margin:12px 0;
+margin-left:auto;
+width:75%;
+">
+
+${input.value}
+
+</div>
+
+`;
+
+chat.innerHTML+=`
+
+<div style="
+background:white;
+padding:12px;
+border-radius:12px;
+width:80%;
+margin-bottom:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.08);
+">
+
+🤖 AI Response
+
+This dashboard UI is ready.
+
+You can connect Gemini API or OpenAI API here to receive real AI-generated health information.
+
+</div>
+
+`;
+
+chat.scrollTop=chat.scrollHeight;
+
+input.value="";
+
+}
+
+function animate(id,target){
+
+let count=0;
+
+let speed=target/120;
+
+let interval=setInterval(function(){
+
+count+=speed;
+
+document.getElementById(id).innerHTML=Math.floor(count);
+
+if(count>=target){
+
+document.getElementById(id).innerHTML=target;
+
+clearInterval(interval);
+
+}
+
+},15);
+
+}
+
+animate("count1",2500);
+
+animate("count2",1800);
+
+animate("count3",450);
+
+animate("count4",15000);
+
+function calculateBMI(){
+
+let h=document.getElementById("height").value/100;
+
+let w=document.getElementById("weight").value;
+
+let bmi=w/(h*h);
+
+if(!h||!w){
+
+document.getElementById("bmiResult").innerHTML="Enter valid values.";
+
+return;
+
+}
+
+document.getElementById("bmiResult").innerHTML=
+
+"Your BMI: <b>"+bmi.toFixed(1)+"</b>";
+
+}
+
+</script>
+
+</body>
+
+</html>
